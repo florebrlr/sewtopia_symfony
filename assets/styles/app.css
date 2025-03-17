@@ -1,3 +1,36 @@
 body {
-    background-color: skyblue;
+    --HeaderColor: #a2a78e;
+    --BackgrounColor : #fef2e7;
+    --FooterColor : #ecddd3;
+
+    min-height: 100vh;
+    background-color: var(--BackgrounColor);
+}
+
+header{
+    background-color: var(--HeaderColor);
+}
+
+header a{
+    text-decoration: none;
+    color: inherit;
+}
+
+.header-logo img{
+    max-width: 42px;
+    margin-right: 5px;
+}
+
+header nav a:hover{
+    text-decoration: underline;
+}
+
+main{
+
+}
+
+footer{
+    padding: 1.5rem 0;
+    text-align: center;
+    background-color: var(--FooterColor);
 }
