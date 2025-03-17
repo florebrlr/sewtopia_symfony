@@ -23,3 +23,14 @@
 /public/assets/
 /assets/vendor/
 ###< symfony/asset-mapper ###
+/.idea/.gitignore
+/public/.htaccess
+/.idea/dbnavigator.xml
+/.idea/commandlinetools/schemas/frameworkDescriptionVersion1.1.4.xsd
+/.idea/modules.xml
+/.idea/php.xml
+/.idea/phpunit.xml
+/.idea/sewtopia_symfony.iml
+/.idea/symfony2.xml
+/.idea/commandlinetools/Symfony_3_17_25__5_39_PM.xml
+/.idea/vcs.xml
