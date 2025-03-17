@@ -16,9 +16,8 @@ class PatternController extends AbstractController
     #[Route('/', name: 'list', methods: ['GET'])]
     public function list(PatternRepository $patternRepository): Response
     {
-// récupère les patron publiés, du plus récent au plus ancien
-        // Récupère les patrons publiés, du plus récent au plus ancien
-        $patterns = $patternRepository->findBy(['isPrinted' => true], ['dateProduced' => 'DESC']);
+        //récupère tous les patrons
+        $patterns = $patternRepository->findAll();
         return $this->render('pattern/list.html.twig', ["patterns" => $patterns]);
     }
 
@@ -26,9 +25,9 @@ class PatternController extends AbstractController
     #[Route('/{id}', name: 'detail', methods: ['GET'])]
     public function detail(int $id, PatternRepository $patternRepository): Response
     {
-// récupère ce patron en fonction de l'id présent dans l'URL
+        // récupère ce patron en fonction de l'id présent dans l'URL
         $pattern = $patternRepository->find($id);
-// s'il n'existe pas en bdd, on déclenche une erreur 404
+        // s'il n'existe pas en bdd, on déclenche une erreur 404
         if (!$pattern){
             throw $this->createNotFoundException('This pattern do not exists! Sorry!');
         }
