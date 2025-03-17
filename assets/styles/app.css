@@ -1,14 +1,81 @@
-body {
-    --HeaderColor: #a2a78e;
-    --BackgrounColor : #fef2e7;
-    --FooterColor : #ecddd3;
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Quando&family=Roboto:ital,wght@0,100..900&display=swap");
 
-    min-height: 100vh;
-    background-color: var(--BackgrounColor);
+/*---------------------------------------------*/
+/*               GLOBAL STYLES                 */
+/*---------------------------------------------*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
 }
 
-header{
-    background-color: var(--HeaderColor);
+html, body {
+    height: 100%;
+}
+
+body {
+    background-color: var(--BackGround);
+    color: var(--Black);
+    font-size: var(--font-size-default);
+    height: 100vh;
+}
+
+/*---------------------------------------------*/
+/*         DECLARATION DES VARIABLES           */
+/*---------------------------------------------*/
+:root {
+    /* Couleurs */
+    --PrimaryColor: #ecc5f0;
+    --SecondaryColor: #d2f6d3;
+    --AccentColor1: #a563fa;
+    --AccentColor2: #ef94ca;
+    --AccentColor3: #dcefee;
+    --AccentColor4: #7ccdc9;
+    --AccentColor5: #fb6a6a;
+    --AccentColor6: #ffbbd3;
+    --AccentColor7: #7ccdc9;
+
+    --White: #fffdfb;
+    --WhitePowderedSugar: #fdfcfa;
+    --Grey: #d9d9d9;
+    --Black: #373d3b;
+    --LightBeige: #fff7ee;
+    --BackGround: var(--LightBeige);
+    --ColorCancelButton: var(--Grey);
+    --ColorHoverButton: var(--AccentColor7);
+    --ColorClic: #fca381;
+
+    /* Conversion de px en em */
+    --10px: 0.625em;
+    --12px: 0.75em;
+    --14px: 0.875em;
+    --20px: 1.25em;
+    --40px: 2.5em;
+
+    /* Font-size */
+    --font-size-default: 1em;
+    --font-size-h1: 1.5em;
+    --font-size-h2: 1.25em;
+    --font-size-h3: 1.15em;
+}
+
+/*---------------------------------------------*/
+/*                    GLOBAL                   */
+/*---------------------------------------------*/
+/*   CLASSES   */
+h1 {
+    font-family: "quando", sans-serif;
+    padding: var(--10px);
+}
+
+h2 {
+    font-size: var(--font-size-h2);
+}
+
+ul {
+    list-style-type: none;
 }
 
 header a{
@@ -32,5 +99,4 @@ main{
 footer{
     padding: 1.5rem 0;
     text-align: center;
-    background-color: var(--FooterColor);
 }
