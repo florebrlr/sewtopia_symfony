@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/patterns', name: 'pattern_')]
 class PatternController extends AbstractController
 {
-    //route de la liste des patrons
+    //route de la liste de tous les patrons
     #[Route('/', name: 'list', methods: ['GET'])]
     public function list(PatternRepository $patternRepository): Response
     {

@@ -19,9 +19,9 @@ class Pattern
     #[ORM\Column(length: 250)]
     #[Assert\NotBlank(message: 'Please provide a pattern  !')]
     #[Assert\Length(
-        min:5,
-        minMessage: 'Minimum {{ limit }} characters please!',
+        min: 5,
         max: 5000,
+        minMessage: 'Minimum {{ limit }} characters please!',
         maxMessage: 'Maximum {{ limit }} characters please!'
     )]
     private ?string $title = null;
@@ -30,9 +30,9 @@ class Pattern
     #[ORM\Column(type: Types::TEXT, nullable: true)]
 
     #[Assert\Length(
-        min:5,
-        minMessage: 'Minimum {{ limit }} characters please!',
+        min: 5,
         max: 5000,
+        minMessage: 'Minimum {{ limit }} characters please!',
         maxMessage: 'Maximum {{ limit }} characters please!'
     )]
     private ?string $commentary = null;
@@ -41,9 +41,9 @@ class Pattern
     #[ORM\Column(length: 50)]
     #[Assert\NotBlank(message: 'Please provide the creator of the pattern !')]
     #[Assert\Length(
-        min:3,
-        minMessage: 'Minimum {{ limit }} characters please!',
+        min: 3,
         max: 50,
+        minMessage: 'Minimum {{ limit }} characters please!',
         maxMessage: 'Maximum {{ limit }} characters please!'
     )]
     #[Assert\Regex(
@@ -62,6 +62,7 @@ class Pattern
 
     public function __construct()
     {
+        $dateProduced = null;
         $this->$dateProduced = new \DateTimeImmutable();
         $this->isPrinted = false;
     }
@@ -131,4 +132,5 @@ class Pattern
         $this->getDateProduced = $dateProduced;
         return $this;
     }
+
 }
