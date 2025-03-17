@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Repository\WishRepository;
+use App\Repository\PatternRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -84,12 +84,12 @@ class Pattern
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function getCommentary(): ?string
     {
         return $this->commentary;
     }
 
-    public function setDescription(?string $commentary): static
+    public function setCommentary(?string $commentary): static
     {
         $this->commentary = $commentary;
 

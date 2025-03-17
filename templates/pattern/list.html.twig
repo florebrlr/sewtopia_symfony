@@ -1,5 +1,13 @@
-{% extends 'base.html.twig' %}
 {% block body %}
-    <h2>All wishes!</h2>
-{% endblock %}
-{% block title %}All wishes | {{ parent() }}{% endblock %}
+    <section class="patterns-list">
+        <h2>All patterns!</h2>
+        {% for pattern in patterns %}
+            <article>
+                <a href="{{ path('pattern_detail', {id: pattern.id}) }}"
+                   title="View this pattern in details">
+                    {{ pattern.title }}
+                </a>
+            </article>
+        {% endfor %}
+    </section>
+{% endblock %}²

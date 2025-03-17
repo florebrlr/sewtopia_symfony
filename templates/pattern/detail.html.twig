@@ -1,5 +1,11 @@
-{% extends 'base.html.twig' %}
 {% block body %}
-    <h2>Détail d'un wish... Titre de l'idée ici !</h2>
+<div class="card mt-2 mb-2 w-50 m-auto">
+    <div class="card-body">
+        <h5 class="card-title">{{ pattern.title }}</h5>
+        <p class="pattern-credit">Created by {{ pattern.author }}</p>
+        <p>{{ pattern.dateProduced|date('Y-m-d') }}</p>
+        <p class="card-text">{{ pattern.commentary|nl2br }}</p>
+        {# le filtre nl2br convertit les sauts de ligne du texte en balises <br> #}
+    </div>
+</div>
 {% endblock %}
-{% block title %}Titre de l'idée ici ! | {{ parent() }}{% endblock %}
