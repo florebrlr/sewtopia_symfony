@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/patterns/', name: 'pattern_')]
+#[Route('/patterns', name: 'pattern_')]
 class PatternController extends AbstractController
 {
     //route de la liste des patrons
