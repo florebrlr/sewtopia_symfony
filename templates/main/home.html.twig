@@ -2,6 +2,15 @@
     {% block title %}Home | {{ parent() }}{% endblock %}
 
 {% block body %}
-    <h2>Bienvenue sur Sewtopia !</h2>
+    <div>
+        <h2>Bienvenue sur </h2>
+        <img src="{{ asset('img/logo_sewtopia.png') }}" alt="logo Sewtopia">
+    </div>
+    <div>
+        <p>Découvrez votre univers,
+            <br>où l'inspiration et la créativité se libèrent.
+            <br>Retrouvez votre espace couture en un seul clic !</p>
+    </div>
+
 {% endblock %}
 
