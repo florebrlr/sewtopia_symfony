@@ -15,7 +15,7 @@ class Pattern
     #[ORM\Column]
     private ?int $id = null;
 
-    //titre
+    // Titre
     #[ORM\Column(length: 250)]
     #[Assert\NotBlank(message: 'Please provide a pattern  !')]
     #[Assert\Length(
@@ -26,9 +26,8 @@ class Pattern
     )]
     private ?string $title = null;
 
-    //Commentaire
+    // Commentaire
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-
     #[Assert\Length(
         min: 5,
         max: 5000,
@@ -37,7 +36,7 @@ class Pattern
     )]
     private ?string $commentary = null;
 
-    //créateur du patron
+    // Créateur du patron
     #[ORM\Column(length: 50)]
     #[Assert\NotBlank(message: 'Please provide the creator of the pattern !')]
     #[Assert\Length(
@@ -48,25 +47,24 @@ class Pattern
     )]
     #[Assert\Regex(
         pattern: '/^[a-z0-9_-]+$/i',
-        message: 'Please  use only letters, numbers,underscores and dashes!'
+        message: 'Please  use only letters, numbers, underscores and dashes!'
     )]
     private ?string $author = null;
 
-    //boolean patron est imprimé ou non
+    // Boolean : patron est imprimé ou non
     #[ORM\Column]
     private ?bool $isPrinted = null;
 
-    // date de réalisation du patron
+    // Date de réalisation du patron
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $dateProduced = null;
 
     public function __construct()
     {
-        $dateProduced = null;
-        $this->$dateProduced = new \DateTimeImmutable();
+
+        $this->dateProduced = new \DateTimeImmutable();
         $this->isPrinted = false;
     }
-
 
     public function getId(): ?int
     {
@@ -81,7 +79,6 @@ class Pattern
     public function setTitle(string $title): static
     {
         $this->title = $title;
-
         return $this;
     }
 
@@ -93,7 +90,6 @@ class Pattern
     public function setCommentary(?string $commentary): static
     {
         $this->commentary = $commentary;
-
         return $this;
     }
 
@@ -105,7 +101,6 @@ class Pattern
     public function setAuthor(string $author): static
     {
         $this->author = $author;
-
         return $this;
     }
 
@@ -117,20 +112,17 @@ class Pattern
     public function setIsPublished(bool $isPrinted): static
     {
         $this->isPrinted = $isPrinted;
-
         return $this;
     }
-
 
     public function getDateProduced(): ?\DateTimeImmutable
     {
-        return $this->getDateProduced;
+        return $this->dateProduced;
     }
 
-    public function setDateUpdated(?\DateTimeImmutable $dateProduced): static
+    public function setDateProduced(?\DateTimeImmutable $dateProduced): static
     {
-        $this->getDateProduced = $dateProduced;
+        $this->dateProduced = $dateProduced;
         return $this;
     }
-
 }

@@ -17,7 +17,8 @@ class PatternController extends AbstractController
     public function list(PatternRepository $patternRepository): Response
     {
 // récupère les patron publiés, du plus récent au plus ancien
-        $patterns = $patternRepository->findBy(['isProduced' => true], ['dateProduced' => 'DESC']);
+        // Récupère les patrons publiés, du plus récent au plus ancien
+        $patterns = $patternRepository->findBy(['isPrinted' => true], ['dateProduced' => 'DESC']);
         return $this->render('pattern/list.html.twig', ["patterns" => $patterns]);
     }
 
