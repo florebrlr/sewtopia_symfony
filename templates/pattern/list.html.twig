@@ -1,19 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ parent() }} | List
+    {{ parent() }} | Liste des patrons
 {% endblock %}
 
 {% block body %}
     <section class="patterns-list">
-        <h2>All patterns!</h2>
+        <h2>Liste de mes patrons :</h2>
         {% for pattern in patterns %}
             <article>
                 <a href="{{ path('pattern_detail', {id: pattern.id}) }}"
-                   title="View this pattern in details">
+                   title="Voir les détails de ce patron">
                     {{ pattern.title }}
                 </a>
             </article>
         {% endfor %}
     </section>
-{% endblock %}²
+{% endblock %}

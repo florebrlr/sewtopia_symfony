@@ -1,10 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} | Détail du patron
+{% endblock %}
+
 {% block body %}
 <div class="card mt-2 mb-2 w-50 m-auto">
     <div class="card-body">
-        <h5 class="card-title">{{ pattern.title }}</h5>
-        <p class="pattern-credit">Created by {{ pattern.author }}</p>
-        <p>{{ pattern.dateProduced|date('Y-m-d') }}</p>
-        <p class="card-text">{{ pattern.commentary|nl2br }}</p>
+        <h5 class="card-title">Nom du Patron : {{ pattern.title }}</h5>
+        <p class="pattern-credit">Creatrice.teur. : {{ pattern.author }}</p>
+        <p>Date de réalisation : {{ pattern.dateProduced|date('d-m-Y') }}</p>
+        <p class="card-text">Commentaire : {{ pattern.commentary|nl2br }}</p>
         {# le filtre nl2br convertit les sauts de ligne du texte en balises <br> #}
     </div>
 </div>
