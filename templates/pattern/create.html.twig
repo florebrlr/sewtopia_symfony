@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} | Ajouter un patron
+{% endblock %}
+
+{% block body %}
+    {% if patternForm.vars.value.id == null %}
+        <h2>Ajouter un patron</h2>
+    {% else %}
+        <h2>Modifier un patron</h2>
+    {% endif %}
+    {{ form_start(patternForm) }}
+    {{ form_row(patternForm.title) }}
+    {{ form_row(patternForm.description) }}
+    {{ form_row(patternForm.author) }}
+    {{ form_row(patternForm.isPublished) }}
+    <button class="btn btn-sm btn-primary">{{ patternForm.vars.value.id == null ? 'Créer' : 'Modifier' }}</button>
+    {{ form_end(patternForm) }}
+{% endblock %}
+
+

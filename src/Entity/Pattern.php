@@ -26,15 +26,7 @@ class Pattern
     )]
     private ?string $title = null;
 
-    // Commentaire
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    #[Assert\Length(
-        min: 5,
-        max: 5000,
-        minMessage: 'Minimum {{ limit }} characters please!',
-        maxMessage: 'Maximum {{ limit }} characters please!'
-    )]
-    private ?string $commentary = null;
+
 
     // Créateur du patron
     #[ORM\Column(length: 50)]
@@ -59,6 +51,16 @@ class Pattern
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $dateProduced = null;
 
+    // Commentaire
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Assert\Length(
+        min: 5,
+        max: 5000,
+        minMessage: 'Minimum {{ limit }} characters please!',
+        maxMessage: 'Maximum {{ limit }} characters please!'
+    )]
+    private ?string $commentary = null;
+
     public function __construct()
     {
 
@@ -82,16 +84,7 @@ class Pattern
         return $this;
     }
 
-    public function getCommentary(): ?string
-    {
-        return $this->commentary;
-    }
 
-    public function setCommentary(?string $commentary): static
-    {
-        $this->commentary = $commentary;
-        return $this;
-    }
 
     public function getAuthor(): ?string
     {
@@ -123,6 +116,17 @@ class Pattern
     public function setDateProduced(?\DateTimeImmutable $dateProduced): static
     {
         $this->dateProduced = $dateProduced;
+        return $this;
+    }
+
+    public function getCommentary(): ?string
+    {
+        return $this->commentary;
+    }
+
+    public function setCommentary(?string $commentary): static
+    {
+        $this->commentary = $commentary;
         return $this;
     }
 }

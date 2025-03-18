@@ -13,5 +13,19 @@
         <p class="card-text">Commentaire : {{ pattern.commentary|nl2br }}</p>
         {# le filtre nl2br convertit les sauts de ligne du texte en balises <br> #}
     </div>
+
+    <div class="card-body">
+        <a href="{{ path('pattern_delete', {'id': pattern.id, 'token': csrf_token
+            ('delete'~pattern.id)}) }}"
+           class="btn btn-danger mt-2"
+           title="Supprimer ce patron">
+            Supprimer
+        </a>
+        <a href="{{ path('pattern_update', {'id': pattern.id}) }}"
+           class="btn btn-secondary mt-2"
+           title="Modifier ce patron">
+            Modifier
+        </a>
+    </div>
 </div>
 {% endblock %}
