@@ -97,12 +97,12 @@ class Pattern
         return $this;
     }
 
-    public function isPublished(): ?bool
+    public function GetIsPrinted(): ?bool
     {
         return $this->isPrinted;
     }
 
-    public function setIsPublished(bool $isPrinted): static
+    public function SetIsPrinted(bool $isPrinted): static
     {
         $this->isPrinted = $isPrinted;
         return $this;

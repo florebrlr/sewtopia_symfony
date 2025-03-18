@@ -46,7 +46,7 @@ class PatternController extends AbstractController
         $patternForm = $this->createForm(PatternType::class, $pattern);
         $patternForm->handleRequest($request);
         if ($patternForm->isSubmitted() && $patternForm->isValid()) {
-            $pattern->setIsPublished(true);
+            $pattern->setIsPrinted(true);
             $em->persist($pattern);
             $em->flush();
             $this->addFlash('success', 'Le patron a été créé!');
@@ -70,7 +70,6 @@ class PatternController extends AbstractController
         $patternForm = $this->createForm(PatternType::class, $pattern);
         $patternForm->handleRequest($request);
         if ($patternForm->isSubmitted() && $patternForm->isValid()) {
-            $pattern->setDateUpdated(new \DateTimeImmutable());
             $em->flush();
             $this->addFlash('success', 'Ce patron a été mis à jour!');
             return $this->redirectToRoute('pattern_detail', ['id' => $pattern->getId()]);
