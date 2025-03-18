@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme patternForm 'views/form-theme.html.twig' %}
+
+{% block title %}
+    {{ parent() }} | Add a pattern
+{% endblock %}
+
+{% block body %}
+    <h1>Ajouter un nouveau patron </h1>
+
+    {{ form_start(serieForm) }}
+    {{ form_widget(serieForm) }}
+    <button>Créer ce patron</button>
+    {{ form_end(serieForm) }}
+{% endblock %}
+
