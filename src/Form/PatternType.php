@@ -8,6 +8,7 @@ use App\Entity\Pattern;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -31,6 +32,10 @@ public function buildForm(FormBuilderInterface $builder, array $options): void
         ->add('isPrinted', CheckboxType::class, [
             'required' => false,
             'label' => 'Patron imprimé'
+        ])
+        ->add('dateProduced', DateType::class, [
+            'required' => false,
+            'label' => 'Date de réalisation'
         ])
 
         ->add('commentary', TextareaType::class, [
