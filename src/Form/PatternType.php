@@ -6,10 +6,12 @@ use App\Entity\Pattern;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Image;
 
 class PatternType extends AbstractType
 {
@@ -41,7 +43,19 @@ class PatternType extends AbstractType
             ->add('commentary', TextareaType::class, [
                 'label' => 'Commentaire : ',
                 'required' => false
-            ]);
+            ])
+            ->add('image', FileType::class, [
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new Image(
+                        maxSize: '5M',
+                        maxSizeMessage: "Fichier trop volumineuse ! 5M max",
+                        mimeTypesMessage: "Format non valide !"
+                    )
+                ]
+            ])
+        ;
         //        ->add('category', EntityType::class, [
 //        'class' => Category::class,
 //        'query_builder' => function (CategoryRepository $categoryRepository) {
@@ -49,6 +63,7 @@ class PatternType extends AbstractType
 //        }
 //    ]);
     }
+
 
     public function configureOptions(OptionsResolver $resolver): void
     {

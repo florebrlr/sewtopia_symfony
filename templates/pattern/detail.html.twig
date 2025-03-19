@@ -7,6 +7,9 @@
 {% block body %}
 <div class="card mt-2 mb-2 w-50 m-auto">
     <article class="card-body">
+{#        <div>#}
+{#            <img class="card-img-top img-fluid" src="{{ asset('img/images/patterns/' ~ pattern.image) }}" alt=" {{ pattern.title }}">#}
+{#        </div>#}
         <h5 class="card-title">Nom du Patron : {{ pattern.title }}</h5>
         <p class="pattern-credit">Créatrice.teur. : {{ pattern.author }}</p>
         <p class="card-text">Catégorie : {{ pattern.category.name }}</p>
