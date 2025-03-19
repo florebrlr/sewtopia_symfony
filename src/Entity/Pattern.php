@@ -61,6 +61,11 @@ class Pattern
     )]
     private ?string $commentary = null;
 
+    #[ORM\ManyToOne(inversedBy: 'pattern')]
+    #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotNull]
+    private ?Category $category = null;
+
     public function __construct()
     {
 
@@ -127,6 +132,16 @@ class Pattern
     public function setCommentary(?string $commentary): static
     {
         $this->commentary = $commentary;
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
         return $this;
     }
 }
