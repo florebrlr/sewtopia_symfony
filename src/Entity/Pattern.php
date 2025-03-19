@@ -10,6 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: PatternRepository::class)]
 class Pattern
 {
+    // ID
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -26,9 +27,7 @@ class Pattern
     )]
     private ?string $title = null;
 
-
-
-    // Créateur du patron
+    // Créatrice.teur du patron
     #[ORM\Column(length: 50)]
     #[Assert\NotBlank(message: 'Please provide the creator of the pattern !')]
     #[Assert\Length(
@@ -47,9 +46,13 @@ class Pattern
     #[ORM\Column]
     private ?bool $isPrinted = null;
 
+    // Boolean : projet réalisé oui ou non
+    #[ORM\Column(nullable: false)]
+    private ?bool $isRealized = false;
+
     // Date de réalisation du patron
     #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $dateProduced = null;
+    private ?\DateTimeImmutable $dateRealized = null;
 
     // Commentaire
     #[ORM\Column(type: Types::TEXT, nullable: true)]
@@ -61,6 +64,7 @@ class Pattern
     )]
     private ?string $commentary = null;
 
+    // Relation pattern - category
     #[ORM\ManyToOne(inversedBy: 'pattern')]
     #[ORM\JoinColumn(nullable: false)]
     #[Assert\NotNull]
@@ -68,16 +72,17 @@ class Pattern
 
     public function __construct()
     {
-
-        $this->dateProduced = new \DateTimeImmutable();
         $this->isPrinted = false;
+        $this->dateRealized = null; // Initialisation correcte à null
     }
 
+    // Getter et setter ID
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    // Getter et setter title
     public function getTitle(): ?string
     {
         return $this->title;
@@ -89,8 +94,7 @@ class Pattern
         return $this;
     }
 
-
-
+    // Getter et setter author
     public function getAuthor(): ?string
     {
         return $this->author;
@@ -102,28 +106,47 @@ class Pattern
         return $this;
     }
 
-    public function GetIsPrinted(): ?bool
+    // Getter et setter isPrinted
+    public function getIsPrinted(): ?bool
     {
         return $this->isPrinted;
     }
 
-    public function SetIsPrinted(bool $isPrinted): static
+    public function setIsPrinted(bool $isPrinted): static
     {
         $this->isPrinted = $isPrinted;
         return $this;
     }
 
-    public function getDateProduced(): ?\DateTimeImmutable
+    // Getter et setter isRealized
+    public function getIsRealized(): ?bool
     {
-        return $this->dateProduced;
+        return $this->isRealized;
     }
 
-    public function setDateProduced(?\DateTimeImmutable $dateProduced): static
+    public function setIsRealized(?bool $isRealized): static
     {
-        $this->dateProduced = $dateProduced;
+        $this->isRealized = $isRealized;
         return $this;
     }
 
+    // Getter et setter dateRealized
+    public function getDateRealized(): ?\DateTimeImmutable
+    {
+        return $this->dateRealized;
+    }
+
+    public function setDateRealized(?\DateTimeImmutable $dateRealized): static
+    {
+        if ($this->isRealized) {
+            $this->dateRealized = $dateRealized;
+        } else {
+            $this->dateRealized = null; // Si le projet n'est pas réalisé, on garde la date à null.
+        }
+        return $this;
+    }
+
+    // Getter et setter commentary
     public function getCommentary(): ?string
     {
         return $this->commentary;
@@ -131,14 +154,19 @@ class Pattern
 
     public function setCommentary(?string $commentary): static
     {
+        if (!$this->isRealized) {
+            $commentary = null; // Si le projet n'est pas réalisé, on garde le commentaire à null.
+        }
         $this->commentary = $commentary;
         return $this;
     }
 
+    // Getter et setter category
     public function getCategory(): ?Category
     {
         return $this->category;
     }
+
     public function setCategory(?Category $category): self
     {
         $this->category = $category;

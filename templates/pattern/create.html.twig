@@ -14,7 +14,10 @@
     {{ form_row(patternForm.title) }}
     {{ form_row(patternForm.author) }}
     {{ form_row(patternForm.isPrinted) }}
+    {{ form_row(patternForm.isRealized) }}
+    {{ form_row(patternForm.dateRealized) }}
     {{ form_row(patternForm.commentary) }}
+
     <button class="btn btn-sm btn-primary">{{ patternForm.vars.value.id == null ? 'Créer' : 'Modifier' }}</button>
     {{ form_end(patternForm) }}
 {% endblock %}

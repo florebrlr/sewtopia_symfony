@@ -6,17 +6,21 @@
 
 {% block body %}
 <div class="card mt-2 mb-2 w-50 m-auto">
-    <div class="card-body">
+    <article class="card-body">
         <h5 class="card-title">Nom du Patron : {{ pattern.title }}</h5>
-        <p class="pattern-credit">Creatrice.teur. : {{ pattern.author }}</p>
-        <p>Date de réalisation : {{ pattern.dateProduced|date('d-m-Y') }}</p>
-        <p class="card-text">Commentaire : {{ pattern.commentary|nl2br }}</p>
-        {# le filtre nl2br convertit les sauts de ligne du texte en balises <br> #}
-    </div>
+        <p class="pattern-credit">Créatrice.teur. : {{ pattern.author }}</p>
+        <p class="card-text">Catégorie : {{ pattern.category.name }}</p>
+        <p class="card-text">Patron imprimé : {{ pattern.isPrinted ? 'Oui' : 'Non'}}</p>
+        <p class="card-text">Projet réalisé : {{ pattern.isRealized ? 'Oui' : 'Non'}}</p>
+        {% if pattern.isrealized %}
+            <p class="card-text">Date de réalisation : {{ pattern.dateRealized|date('d-m-Y') }}</p>
+            <p class="card-text">Commentaire : {{ pattern.commentary|nl2br }}</p>
+        {% endif %}
+
+    </article>
 
     <div class="card-body">
-        <a href="{{ path('pattern_delete', {'id': pattern.id, 'token': csrf_token
-            ('delete'~pattern.id)}) }}"
+        <a href="{{ path('pattern_delete', {'id': pattern.id, 'token': csrf_token ('delete'~pattern.id)}) }}"
            class="btn btn-danger mt-2"
            title="Supprimer ce patron">
             Supprimer
