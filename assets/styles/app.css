@@ -100,3 +100,12 @@ footer{
     padding: 1.5rem 0;
     text-align: center;
 }
+
+/*---------------------------------------------*/
+/*                    DETAIL                   */
+/*---------------------------------------------*/
+/*   CLASSES   */
+.sewing-icon {
+    max-width: 200px;
+    padding: 1rem;
+}

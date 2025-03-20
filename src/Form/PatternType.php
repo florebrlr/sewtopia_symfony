@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Category;
 use App\Entity\Pattern;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -25,6 +27,11 @@ class PatternType extends AbstractType
             ->add('author', TextType::class, [
                 'label' => 'Créatrice.teur. : ',
                 'required' => true
+            ])
+            ->add('category', EntityType::class
+            , [
+                'class' => Category::class,
+                'choice_label' => 'name',
             ])
             ->add('isPrinted', CheckboxType::class, [
                 'required' => false,
