@@ -9,17 +9,14 @@
 
     <article class="card-body">
         <div class="card-img-top img-fluid text-center">
-            <img class="sewing-icon" src="{{ asset('img/sewing_icon.png') }}" alt="{{ pattern.title }}" >
-
-{#                        afficher soit l'icon si pas img soit img si existe#}
-{#            {% if pattern.image != null %}#}
-{#                <img class="card-img-top img-fluid" src="{{ asset('img/images/patterns/' ~ pattern.image) }}" alt="{{ pattern.title }}">#}
-{#            {% else %}#}
-{#                <img class="sewing-icon" src="{{ asset('img/sewing_icon.png') }}" alt="{{ pattern.title }}">#}
-{#            {% endif %}#}
-
-
+{#                        afficher soit l'icon soit img si existe#}
+            {% if pattern.image != null %}
+                <img class="card-img-top img-fluid" src="{{ asset('img/images/patterns/' ~ pattern.image) }}" alt="{{ pattern.title }}">
+            {% else %}
+                <img class="sewing-icon" src="{{ asset('img/sewing_icon.png') }}" alt="{{ pattern.title }}">
+            {% endif %}
         </div>
+
         <h5 class="card-title">Nom du Patron : {{ pattern.title }}</h5>
         <p class="pattern-credit">Créatrice.teur. : {{ pattern.author }}</p>
         <p class="card-text">Catégorie : {{ pattern.category.name }}</p>

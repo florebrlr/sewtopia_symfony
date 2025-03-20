@@ -70,6 +70,10 @@ class Pattern
     #[Assert\NotNull]
     private ?Category $category = null;
 
+    //image
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image = null;
+
     public function __construct()
     {
         $this->isPrinted = false;
@@ -170,6 +174,18 @@ class Pattern
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+        return $this;
+    }
+
+    // Getter et setter image
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+    public function setImage(?string $image): static
+    {
+        $this->image = $image;
+
         return $this;
     }
 }

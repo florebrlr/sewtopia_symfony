@@ -7,11 +7,13 @@ namespace App\Controller;
 use App\Entity\Pattern;
 use App\Form\PatternType;
 use App\Repository\PatternRepository;
+use App\Services\Uploader;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 #[Route('/patterns', name: 'pattern_')]
 class PatternController extends AbstractController
@@ -26,7 +28,7 @@ class PatternController extends AbstractController
     }
 
     //route d'un patron
-    #[Route('/{id}', name: 'detail',requirements: ['id' => '\d+'], methods: ['GET','POST'])]
+    #[Route('/{id}', name: 'detail', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
     public function detail(int $id, PatternRepository $patternRepository): Response
     {
         $pattern = $patternRepository->find($id);
@@ -39,17 +41,22 @@ class PatternController extends AbstractController
     }
 
     //route pour créer un nouveau patron
-    #[Route('/create', name: 'create', methods: ['GET', 'POST'])]
-    public function create(Request $request, EntityManagerInterface $em): Response
+#[Route('/create', name: 'create', methods: ['GET', 'POST'])]
+
+    public function create(Request $request, EntityManagerInterface $em, Uploader $uploader): Response
     {
         $pattern = new Pattern();
         $patternForm = $this->createForm(PatternType::class, $pattern);
         $patternForm->handleRequest($request);
         if ($patternForm->isSubmitted() && $patternForm->isValid()) {
-            $pattern->setIsPrinted(true);
+
+            $image = $patternForm->get('image')->getData();
+            $pattern->setImage(
+                $uploader->save($image, $pattern->getTitle(), $this->getParameter('pattern_image_dir'))
+            );
             $em->persist($pattern);
             $em->flush();
-            $this->addFlash('success', 'Le patron a été créé!');
+            $this->addFlash('success', 'Le patron'. $pattern->getTitle() . ' a été créé!');
             return $this->redirectToRoute('pattern_detail', ['id' => $pattern->getId()]);
         }
         // affiche le formulaire
@@ -60,8 +67,12 @@ class PatternController extends AbstractController
 
     //route pour modifier un patron
     #[Route('/{id}/update', name: 'update', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
-    public function update(int $id, PatternRepository $patternRepository, Request $request,
-                           EntityManagerInterface $em): Response
+    public function update(
+        int $id,
+        PatternRepository $patternRepository,
+        Request $request,
+        EntityManagerInterface $em
+    ): Response
     {
         $pattern = $patternRepository->find($id);
         if (!$pattern) {
@@ -81,8 +92,12 @@ class PatternController extends AbstractController
 
     //route pour supprimer un patron
     #[Route('/{id}/delete', name: 'delete', requirements: ['id' => '\d+'], methods: ['GET'])]
-    public function delete(int $id, PatternRepository $patternRepository, Request $request,
-                           EntityManagerInterface $em): Response
+    public function delete(
+        int $id,
+        PatternRepository $patternRepository,
+        Request $request,
+        EntityManagerInterface $em
+    ): Response
     {
         $pattern = $patternRepository->find($id);
         if (!$pattern) {
