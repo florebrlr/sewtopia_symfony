@@ -74,6 +74,11 @@ class Pattern
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 
+    //relation pattern - user
+    #[ORM\ManyToOne(inversedBy: 'patterns')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
     public function __construct()
     {
         $this->isPrinted = false;
@@ -185,6 +190,18 @@ class Pattern
     public function setImage(?string $image): static
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }
