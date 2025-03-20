@@ -30,16 +30,20 @@
     </article>
 
     <div class="card-body">
+        {% if app.user == pattern.user or is_granted('ROLE_ADMIN') %}
         <a href="{{ path('pattern_delete', {'id': pattern.id, 'token': csrf_token ('delete'~pattern.id)}) }}"
            class="btn btn-danger mt-2"
            title="Supprimer ce patron">
             Supprimer
         </a>
+        {% endif %}
+        {% if app.user == pattern.user %}
         <a href="{{ path('pattern_update', {'id': pattern.id}) }}"
            class="btn btn-secondary mt-2"
            title="Modifier ce patron">
             Modifier
         </a>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

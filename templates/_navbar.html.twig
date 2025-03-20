@@ -16,6 +16,7 @@
                         Accueil
                     </a>
                 </li>
+                {% if app.user %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('pattern_list') }}"
                        title="Voir tous mes patrons">
@@ -28,22 +29,26 @@
                         Ajouter un patron
                     </a>
                 </li>
-
+                {% endif %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('main_about_me') }}"
                        title="A propos de moi">
                         A propos de moi
                     </a>
                 </li>
-{#                <li class="nav-item">#}
-{#                    <a class="nav-link" href="{{ path('app_login')}}" title="Sign in">Sign in</a>#}
-{#                </li>#}
-{#                <li class="nav-item">#}
-{#                    <a class="nav-link" href="{{ path('app_logout')}}" title="Sign out">Sign out</a>#}
-{#                </li>#}
-{#                <li class="nav-item">#}
-{#                    <a class="nav-link" href="{{ path('app_register')}}" title="Register">Register</a>#}
-{#                </li>#}
+
+
+                {% if app.user %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_logout')}}" title="Sign out">Se déconnecter (Hello {{ app.user.username }})</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_register')}}" title="Register">S'enregistrer</a>
+                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_login')}}" title="Sign in">Se connecter</a>
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </div>

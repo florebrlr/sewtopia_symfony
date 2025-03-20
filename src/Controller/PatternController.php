@@ -78,8 +78,12 @@ class PatternController extends AbstractController
         if (!$pattern) {
             throw $this->createNotFoundException('Ce patron n\'existe pas!');
         }
-        $patternForm = $this->createForm(PatternType::class, $pattern);
-        $patternForm->handleRequest($request);
+        if ($pattern->getUser() !== $this->getUser()) {
+            throw $this->createAccessDeniedException();
+        } else {
+            $patternForm = $this->createForm(PatternType::class, $pattern);
+            $patternForm->handleRequest($request);
+        }
         if ($patternForm->isSubmitted() && $patternForm->isValid()) {
             $em->flush();
             $this->addFlash('success', 'Ce patron a été mis à jour!');
