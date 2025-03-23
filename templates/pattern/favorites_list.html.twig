@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} | Mes patrons favoris
+{% endblock %}
+
+{% block body %}
+    <section class="patterns-list">
+        <h2>Liste de mes patrons favoris :</h2>
+        <p>Mettre ici les patrons fav</p>
+        {% for pattern in patterns %}
+{#            <article>#}
+{#                <a> <img src="{{ asset('img/images/patterns/' ~ pattern.image) }}') }}" alt="{{ pattern.title }}"> </a>#}
+{#                <a href="{{ path('pattern_detail', {id: pattern.id}) }}"#}
+{#                   title="Voir les détails de ce patron">#}
+{#                    {{ pattern.title }}#}
+{#                </a>#}
+{#            </article>#}
+        {% endfor %}
+    </section>
+{% endblock %}
+

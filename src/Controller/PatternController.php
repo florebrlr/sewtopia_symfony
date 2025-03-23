@@ -122,4 +122,12 @@ class PatternController extends AbstractController
         }
         return $this->redirectToRoute('pattern_list');
     }
+
+    #[Route('/favorites', name: 'favorites_list', methods: ['GET'])]
+    public function favortiesList(PatternRepository $patternRepository): Response
+    {
+        //récupère tous les patrons
+        $patterns = $patternRepository->findAll();
+        return $this->render('pattern/favorites_list.html.twig', ["patterns" => $patterns]);
+    }
 }

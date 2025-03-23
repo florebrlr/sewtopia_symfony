@@ -5,22 +5,27 @@
 {% endblock %}
 
 {% block body %}
-    {% if patternForm.vars.value.id == null %}
-        <h2>Ajouter un patron</h2>
-    {% else %}
-        <h2>Modifier un patron</h2>
-    {% endif %}
-    {{ form_start(patternForm) }}
-    {{ form_row(patternForm.title) }}
-    {{ form_row(patternForm.author) }}
-    {{ form_row(patternForm.category) }}
-    {{ form_row(patternForm.isPrinted) }}
-    {{ form_row(patternForm.isRealized) }}
-    {{ form_row(patternForm.dateRealized) }}
-    {{ form_row(patternForm.commentary) }}
-    {{ form_row(patternForm.image) }}
-    <button class="btn btn-sm btn-primary">{{ patternForm.vars.value.id == null ? 'Créer' : 'Modifier' }}</button>
-    {{ form_end(patternForm) }}
+    <article class="card-body w-50 m-auto">
+
+        {% if patternForm.vars.value.id == null %}
+            <h2>Ajouter un patron</h2>
+        {% else %}
+            <h2>Modifier un patron</h2>
+        {% endif %}
+        {{ form_start(patternForm) }}
+        {{ form_row(patternForm.title) }}
+        {{ form_row(patternForm.author) }}
+        {{ form_row(patternForm.category) }}
+        {{ form_row(patternForm.isPrinted) }}
+        {{ form_row(patternForm.isRealized) }}
+        {{ form_row(patternForm.dateRealized) }}
+        {{ form_row(patternForm.commentary) }}
+        {{ form_row(patternForm.image) }}
+        <button class="btn btn-sm btn-primary">{{ patternForm.vars.value.id == null ? 'Créer' : 'Modifier' }}</button>
+        {{ form_end(patternForm) }}
+
+    </article>
+
 {% endblock %}
 
 

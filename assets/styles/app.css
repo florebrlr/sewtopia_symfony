@@ -9,6 +9,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: "Roboto", sans-serif;
+
 }
 
 html, body {
@@ -66,7 +67,7 @@ body {
 /*---------------------------------------------*/
 /*   CLASSES   */
 h1 {
-    font-family: "quando", sans-serif;
+    font-family: "Quando", sans-serif;
     padding: var(--10px);
 }
 
@@ -78,34 +79,117 @@ ul {
     list-style-type: none;
 }
 
-header a{
+header a {
     text-decoration: none;
     color: inherit;
 }
 
-.header-logo img{
+.header-logo img {
     max-width: 150px;
     margin-right: 5px;
 }
 
-header nav a:hover{
+header nav a:hover {
     text-decoration: underline;
 }
 
-main{
+main {
+    background-color: var(--BackGround);
+    justify-content: center;
 
 }
 
-footer{
+footer {
     padding: 1.5rem 0;
     text-align: center;
+    background-color: var(--BackGround);
+}
+
+form > label {
+    margin: 2em;
 }
 
 /*---------------------------------------------*/
-/*                    DETAIL                   */
+/*                   SIDEBAR                   */
 /*---------------------------------------------*/
-/*   CLASSES   */
-.sewing-icon {
-    max-width: 200px;
-    padding: 1rem;
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 20%;
+    height: 100vh;
+    background-color: var(--PrimaryColor);
+    overflow-y: auto;
+    z-index: 1000;
+    margin-left: 5rem;
+    font-weight: bold;
+}
+
+.nav-item {
+    justify-content: space-between;
+    padding: var(--10px) var(--40px) ;
+    margin-bottom: var(--12px);
+}
+
+.sidebar .nav-link {
+    color: var(--Black);
+    font-size: var(--font-size-default);
+    text-decoration: none;
+    display: block;
+}
+
+.sidebar .nav-item:hover {
+    background-color: var(--BackGround);
+}
+
+
+.sidebar .nav-link img {
+    max-width: 150px;
+    margin-right: 10px;
+}
+
+.connexion-navbar {
+    margin-top: 2em;
+    margin-bottom: 4em;
+}
+.connexion-navbar a {
+    margin-top: 0.5em;
+}
+
+
+/*id */
+#hi-username {
+    font-size: medium;
+    font-weight: bold;
+}
+
+#hi-username:hover {
+    background-color: transparent;
+}
+
+#username {
+    font-family: "Quando", sans-serif;
+    font-size: var(--font-size-h1);
+    font-weight: bold;
+    margin-left: 0.2em;
+    margin-right: 0.2em;
+}
+/*---------------------------------------------*/
+/*                   HEADER                    */
+/*---------------------------------------------*/
+/*   Logo et menu */
+.header-logo img {
+    max-width: 150px;
+    margin-right: 5px;
+}
+
+
+/*---------------------------------------------*/
+/*                  MOBILE STYLES              */
+/*---------------------------------------------*/
+/* Si tu veux ajouter un style mobile, voici un exemple de base */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%; /* Sur les petits écrans, la sidebar prend 100% de la largeur */
+    }
 }
