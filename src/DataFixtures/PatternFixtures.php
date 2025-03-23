@@ -16,6 +16,7 @@ class PatternFixtures extends Fixture implements DependentFixtureInterface
     {
         $categories = $manager->getRepository(Category::class)->findAll();
         $faker = Factory::create('fr_FR');
+        $users = $manager->getRepository(User::class)->findAll();
 
         for ($i = 0; $i < 50; $i++) {
 
@@ -28,7 +29,8 @@ class PatternFixtures extends Fixture implements DependentFixtureInterface
                 ->setIsRealized($faker->boolean())
                 ->setDateRealized(\DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-1 year', 'now')))
                 ->setCommentary($faker->text())
-                ->setCategory($faker->randomElement($categories));
+                ->setCategory($faker->randomElement($categories))
+                ->setUser($faker->randomElement($users));
             $manager->persist($pattern);
 
         }
