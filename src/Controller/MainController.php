@@ -21,4 +21,10 @@ class MainController extends AbstractController
     {
         return $this->render('main/about_me.html.twig');
     }
+
+    #[Route('/calculator', name: 'main_calculator', methods: ['GET', 'POST'])]
+    public function calculator(): Response
+    {
+        return $this->render('main/calculator.html.twig');
+    }
 }

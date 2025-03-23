@@ -16,41 +16,59 @@
                         Accueil
                     </a>
                 </li>
+
                 {% if app.user %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('pattern_list') }}"
-                       title="Voir tous mes patrons">
-                        Mes patrons
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('pattern_create') }}"
-                       title="Ajouter un patron">
-                        Ajouter un patron
-                    </a>
-                </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="{{ path('pattern_list') }}"
+                           title="Voir tous mes patrons">
+                            Mes patrons
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="{{ path('pattern_create') }}"
+                           title="Ajouter un patron">
+                            Ajouter un patron
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="nav-link" href="{{ path('main_calculator') }}" title="Calculateur de jupe cercle">Calculateur de jupe cercle</a>
+                    </li>
                 {% endif %}
+
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('main_about_me') }}"
                        title="A propos de moi">
                         A propos de moi
                     </a>
                 </li>
-
-
-                {% if app.user %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_logout')}}" title="Sign out">Se déconnecter (Hello {{ app.user.username }})</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_register')}}" title="Register">S'enregistrer</a>
-                </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_login')}}" title="Sign in">Se connecter</a>
-                    </li>
-                {% endif %}
             </ul>
         </div>
+
+        <ul class="navbar-nav mb-2 mb-lg-0">
+            {% if app.user %}
+                <li class="nav-item"> Salut <span class="fw-bold">{{ app.user.username }}</span> ! </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_logout') }}" title="Se déconnecter">
+                        Se déconnecter
+                    </a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_register') }}"
+                       title="S'enregistrer">
+                        S'enregistrer
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_login') }}"
+                       title="Se connecter">
+                        Se connecter
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
     </div>
 </nav>
+
 
