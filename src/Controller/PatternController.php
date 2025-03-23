@@ -46,10 +46,10 @@ class PatternController extends AbstractController
     public function create(Request $request, EntityManagerInterface $em, Uploader $uploader): Response
     {
         $pattern = new Pattern();
+        $user_id= $this->getUser()->getUserIdentifier();
         $patternForm = $this->createForm(PatternType::class, $pattern);
         $patternForm->handleRequest($request);
         if ($patternForm->isSubmitted() && $patternForm->isValid()) {
-
             $image = $patternForm->get('image')->getData();
             $pattern->setImage(
                 $uploader->save($image, $pattern->getTitle(), $this->getParameter('pattern_image_dir'))
@@ -71,7 +71,8 @@ class PatternController extends AbstractController
         int $id,
         PatternRepository $patternRepository,
         Request $request,
-        EntityManagerInterface $em
+        EntityManagerInterface $em,
+        Uploader $uploader
     ): Response
     {
         $pattern = $patternRepository->find($id);
@@ -85,6 +86,11 @@ class PatternController extends AbstractController
             $patternForm->handleRequest($request);
         }
         if ($patternForm->isSubmitted() && $patternForm->isValid()) {
+            $image = $patternForm->get('image')->getData();
+            // ici si je rajoute une img, il faut qu'elle soit save
+            $pattern->setImage(
+                $uploader->save($image, $pattern->getTitle(), $this->getParameter('pattern_image_dir'))
+            );
             $em->flush();
             $this->addFlash('success', 'Ce patron a été mis à jour!');
             return $this->redirectToRoute('pattern_detail', ['id' => $pattern->getId()]);

@@ -24,7 +24,7 @@
         <p class="card-text">Projet réalisé : {{ pattern.isRealized ? 'Oui' : 'Non'}}</p>
         {% if pattern.isrealized %}
             <p class="card-text">Date de réalisation : {{ pattern.dateRealized|date('d-m-Y') }}</p>
-            <p class="card-text">Commentaire : {{ pattern.commentary|nl2br }}</p>
+            <p class="card-text">Commentaire : {{ pattern.commentary | nl2br }}</p>
         {% endif %}
 
     </article>

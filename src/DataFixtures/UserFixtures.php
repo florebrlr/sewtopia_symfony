@@ -23,6 +23,7 @@ class UserFixtures extends Fixture
         $admin->setPassword($this->userPasswordHasher->hashPassword($admin,
             'admin'));
         $manager->persist($admin);
+
         for ($i = 1; $i <= 10; $i++) {
             $user = new User();
             $user->setUsername("user$i");

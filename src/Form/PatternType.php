@@ -32,6 +32,7 @@ class PatternType extends AbstractType
             ->add('category', EntityType::class
             , [
                 'class' => Category::class,
+                'label' => 'Catégorie :',
                 'choice_label' => 'name',
                     'query_builder' => function (CategoryRepository $categoryRepository) {
                         return $categoryRepository->findCategoriesOrderBy();
