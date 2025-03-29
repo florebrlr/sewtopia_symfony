@@ -8,12 +8,17 @@
     <section class="patterns-list">
         <h2>Liste de mes patrons :</h2>
         {% for pattern in patterns %}
-            <article>
-                <a> <img src="{{ asset('img/images/patterns/' ~ pattern.image) }}') }}" alt="{{ pattern.title }}"> </a>
-                <a href="{{ path('pattern_detail', {id: pattern.id}) }}"
-                   title="Voir les détails de ce patron">
-                    {{ pattern.title }}
-                </a>
+            <article class="card text-center" style="width: 18rem;">
+                {% if pattern.image != null %}
+                    <img class="card-img-top img-fluid" src="{{ asset('img/images/patterns/' ~ pattern.image) }}" alt="{{ pattern.title }}">
+                {% else %}
+                    <img class="sewing-icon" src="{{ asset('img/sewing_icon.png') }}" alt="{{ pattern.title }}">
+                {% endif %}
+                <div class="card-body">
+                <h5 class="card-title">{{ pattern.title }}</h5>
+                    <a class="btn btn-primary" href="{{ path('pattern_detail', {id: pattern.id}) }}"
+                       title="Voir les détails de ce patron">Voir ce patron</a>
+                </div>
             </article>
         {% endfor %}
     </section>

@@ -8,9 +8,21 @@
     <article class="card-body">
         <h2 class="card-title">Calculateur de jupe cercle</h2>
 
-        <div class="card-body">
-            <p class="card-text"> ici le calculator</p>
+        <div class="form-control">
+            {{ form_start(calculatorForm) }}
+            {{ form_row(calculatorForm.tour_de_taille) }}
+            {{ form_row(calculatorForm.longueur_jupe) }}
+            {{ form_row(calculatorForm.calculer) }}
+
+            <button type="submit" class="btn btn-primary">Calculer</button>
+            {{ form_end(calculatorForm) }}
         </div>
+
+        {% if resultat is not null %}
+            <div class="card-text">
+                <p>La quantité de tissu nécessaire est de {{ resultat|number_format(2) }} cm.</p>
+            </div>
+        {% endif %}
     </article>
 
 {% endblock %}
