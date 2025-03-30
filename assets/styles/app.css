@@ -264,7 +264,7 @@ form > label {
 }
 .img-pattern-detail {
     flex: 1;
-    max-width: 200px;
+    max-width: 400px;
     margin-right: var(--20px);
     margin-bottom: var(--40px);
     padding: var(--20px);
@@ -281,8 +281,7 @@ form > label {
 }
 
 .pattern-detail div {
-    flex: 2;
-    max-width: 600px;
+    flex: 1;
 }
 
 .pattern-name {
@@ -303,6 +302,7 @@ form > label {
     width: 100%;
     gap: 1em;
 }
+
 /*---------------------------------------------*/
 /*                  MOBILE STYLES              */
 /*---------------------------------------------*/
