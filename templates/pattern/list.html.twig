@@ -5,19 +5,23 @@
 {% endblock %}
 
 {% block body %}
-    <section class="patterns-list">
+    <section class="container mt-2">
         <h2>Liste de mes patrons :</h2>
         {% for pattern in patterns %}
-            <article class="card text-center" style="width: 18rem;">
-                {% if pattern.image != null %}
-                    <img class="card-img-top img-fluid" src="{{ asset('img/images/patterns/' ~ pattern.image) }}" alt="{{ pattern.title }}">
-                {% else %}
-                    <img class="sewing-icon" src="{{ asset('img/sewing_icon.png') }}" alt="{{ pattern.title }}">
-                {% endif %}
-                <div class="card-body">
+            <article class=" patterns-list text-center">
+                <div class="img-pattern">
+                    {% if pattern.image != null %}
+                        <img class="img-fluid" src="{{ asset('img/images/patterns/' ~ pattern.image) }}" alt="{{ pattern.title }}">
+                    {% else %}
+                        <img class="img-fluid text-center" src="{{ asset('img/sewing_icon.png') }}" alt="{{ pattern.title }}" >
+                    {% endif %}
+                </div>
+
+                <div class="infos-card">
                 <h5 class="card-title">{{ pattern.title }}</h5>
-                    <a class="btn btn-primary" href="{{ path('pattern_detail', {id: pattern.id}) }}"
-                       title="Voir les détails de ce patron">Voir ce patron</a>
+                    <p>Créatrice.teur. : {{ pattern.author }}</p>
+                    <a class="btn-template" href="{{ path('pattern_detail', {id: pattern.id}) }}"
+                       title="Voir les détails de ce patron">Voir</a>
                 </div>
             </article>
         {% endfor %}

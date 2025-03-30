@@ -5,24 +5,27 @@
 {% endblock %}
 
 {% block body %}
-    <article class="card-body">
-        <h2 class="card-title">Calculateur de jupe cercle</h2>
+    <div class="card-body w-50 m-auto">
+        <article >
+            <h2 >Calculateur de jupe cercle</h2>
 
-        <div class="form-control">
-            {{ form_start(calculatorForm) }}
-            {{ form_row(calculatorForm.tour_de_taille) }}
-            {{ form_row(calculatorForm.longueur_jupe) }}
+            <div class=" w-50 ">
+                {{ form_start(calculatorForm) }}
+                {{ form_row(calculatorForm.tour_de_taille) }}
+                {{ form_row(calculatorForm.longueur_jupe) }}
 
-            <button type="submit" class="btn btn-primary">Calculer</button>
-            {{ form_end(calculatorForm) }}
-        </div>
-
-        {% if resultat is not null %}
-            <div class="card-text">
-                <p>La quantité de tissu nécessaire est de {{ resultat|number_format(2) }} cm.</p>
+                <button type="submit" class="btn btn-primary mt-2">Calculer</button>
+                {{ form_end(calculatorForm) }}
             </div>
-        {% endif %}
-    </article>
+
+            {% if resultat is not null %}
+                <div>
+                    <p>La quantité de tissu nécessaire est de <span class="bold">{{ resultat|number_format(2) }}</span> cm.</p>
+                </div>
+            {% endif %}
+        </article>
+    </div>
+
 
 {% endblock %}
 
