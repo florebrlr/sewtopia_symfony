@@ -17,7 +17,7 @@ class SearchType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('search', TextType::class, [
+            ->add('searchByName', TextType::class, [
                 'label' => false,
                 'required' => false,
                 'attr' => [
@@ -48,12 +48,6 @@ class SearchType extends AbstractType
             ])
             ->add('dateRealized', DateType::class, [
                 'label' => 'Date de réalisation',
-                'required' => false,
-                'widget' => 'single_text',
-                'html5' => true
-            ])
-            ->add('dateRealizedTo', DateType::class, [
-                'label' => 'Date de réalisation (fin)',
                 'required' => false,
                 'widget' => 'single_text',
                 'html5' => true

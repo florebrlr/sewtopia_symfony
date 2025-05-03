@@ -6,11 +6,12 @@ namespace App\Controller;
 
 use App\Entity\Pattern;
 use App\Form\PatternType;
+use App\Form\SearchPatternForm;
 use App\Repository\PatternRepository;
 use App\Services\Uploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\SearchType;
+use App\Form\SearchType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,14 +20,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class PatternController extends AbstractController
 {
     //route de la liste de tous les patrons
-    #[Route('/', name: 'list', methods: ['GET'])]
+    #[Route('/', name: 'list', methods: ['GET','POST'])]
     public function list(PatternRepository $patternRepository, Request $request): Response
     {
         // Récupérer tous les patrons
         $patterns = $patternRepository->findAll();
 
         // Créer le formulaire de recherche
-        $form = $this->createForm(SearchType::class);
+        $form = $this->createForm(SearchPatternForm::class);
         $form->handleRequest($request);
         // Vérifier si le formulaire a été soumis et filtrer les résultats en fonction des données
         if ($form->isSubmitted() && $form->isValid()) {
@@ -38,7 +39,7 @@ class PatternController extends AbstractController
         // Passer le formulaire et les patrons au template
         return $this->render('pattern/list.html.twig', [
             'patterns' => $patterns,
-            'form' => $form->createView(), // Passer le formulaire au template
+            'form' => $form, // Passer le formulaire au template
         ]);
     }
 
@@ -106,9 +107,11 @@ class PatternController extends AbstractController
         }
         if ($patternForm->isSubmitted() && $patternForm->isValid()) {
 
+            $image = $patternForm->getData()->getImage();
+
 
             // ici si je rajoute une img, il faut qu'elle soit save
-            if ($image) {
+            if ($image !== null) {
                 $pattern->setImage(
                     $uploader->save($image, $pattern->getTitle(), $this->getParameter('pattern_image_dir'))
                 );
