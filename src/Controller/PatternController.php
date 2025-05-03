@@ -6,6 +6,8 @@ namespace App\Controller;
 
 use App\Entity\Pattern;
 use App\Form\PatternType;
+use App\Form\SearchType;
+use App\Model\SearchData;
 use App\Repository\PatternRepository;
 use App\Services\Uploader;
 use Doctrine\ORM\EntityManagerInterface;
@@ -19,11 +21,23 @@ class PatternController extends AbstractController
 {
     //route de la liste de tous les patrons
     #[Route('/', name: 'list', methods: ['GET'])]
-    public function list(PatternRepository $patternRepository): Response
+    public function list(PatternRepository $patternRepository, Request $request): Response
     {
-        //récupère tous les patrons
-        $patterns = $patternRepository->findAll();
-        return $this->render('pattern/list.html.twig', ["patterns" => $patterns]);
+        //création de la recherche
+        $searchData = new SearchData();
+        $form = $this->createForm(SearchType::class, $searchData);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $patterns = $patternRepository->search($searchData);
+        } else {
+            $patterns = $patternRepository->findAll();
+        }
+
+        return $this->render('pattern/list.html.twig', [
+            "patterns" => $patterns,
+            "form" => $form->createView()
+        ]);
     }
 
     //route d'un patron
@@ -88,9 +102,8 @@ class PatternController extends AbstractController
         if ($patternForm->isSubmitted() && $patternForm->isValid()) {
 
 
-
             // ici si je rajoute une img, il faut qu'elle soit save
-            if ($image){
+            if ($image) {
                 $pattern->setImage(
                     $uploader->save($image, $pattern->getTitle(), $this->getParameter('pattern_image_dir'))
                 );

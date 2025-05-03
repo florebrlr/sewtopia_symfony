@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Pattern;
+use App\Model\SearchData;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -15,6 +16,19 @@ class PatternRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Pattern::class);
     }
+
+    public function search(SearchData $searchData): array
+    {
+        $qb = $this->createQueryBuilder('p');
+
+        if (!empty($searchData->search)) {
+            $qb->andWhere('p.title LIKE :search')
+                ->setParameter('search', '%' . $searchData->search . '%');
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
 
 //    /**
 //     * @return Pattern[] Returns an array of Pattern objects

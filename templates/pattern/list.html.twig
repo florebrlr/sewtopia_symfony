@@ -5,6 +5,8 @@
 {% endblock %}
 
 {% block body %}
+    {% include 'fragments/_search_data.html.twig' with
+    {'form': form, 'route': 'list'} %}
     <section class="container mt-2">
         <h2>Liste de mes patrons :</h2>
         {% for pattern in patterns %}
