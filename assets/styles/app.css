@@ -296,7 +296,7 @@ form > label {
     display: flex;
     justify-content: center;
     position: absolute;
-    bottom: 12em;
+    bottom: 20em;
     left: 50%;
     transform: translateX(-50%);
     width: 100%;

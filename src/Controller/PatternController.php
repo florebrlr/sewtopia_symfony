@@ -87,7 +87,8 @@ class PatternController extends AbstractController
         }
         if ($patternForm->isSubmitted() && $patternForm->isValid()) {
 
-            $image = $patternForm->get('image')->getData();
+
+
             // ici si je rajoute une img, il faut qu'elle soit save
             if ($image){
                 $pattern->setImage(
