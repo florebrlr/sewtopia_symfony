@@ -1,15 +1,14 @@
 <?php
 
+
 namespace App\Repository;
 
 use App\Entity\Pattern;
 use App\Model\SearchData;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
-/**
- * @extends ServiceEntityRepository<Pattern>
- */
 class PatternRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -17,41 +16,18 @@ class PatternRepository extends ServiceEntityRepository
         parent::__construct($registry, Pattern::class);
     }
 
-    public function search(SearchData $searchData): array
+    public function getSearchQuery(SearchData $search): QueryBuilder
     {
         $qb = $this->createQueryBuilder('p');
 
-        if (!empty($searchData->search)) {
-            $qb->andWhere('p.title LIKE :search')
-                ->setParameter('search', '%' . $searchData->search . '%');
+// Ajoutez ici des conditions de filtrage basées sur les données de recherche
+        $qb = $this->createQueryBuilder('p');
+
+        if ($search->getSearch()) {
+            $qb->andWhere('p.name LIKE :search')
+                ->setParameter('search', '%' . $search->getSearch() . '%');
         }
 
-        return $qb->getQuery()->getResult();
+        return $qb;
     }
-
-
-//    /**
-//     * @return Pattern[] Returns an array of Pattern objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Pattern
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 }

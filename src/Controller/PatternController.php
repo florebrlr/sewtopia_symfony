@@ -6,12 +6,11 @@ namespace App\Controller;
 
 use App\Entity\Pattern;
 use App\Form\PatternType;
-use App\Form\SearchType;
-use App\Model\SearchData;
 use App\Repository\PatternRepository;
 use App\Services\Uploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SearchType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,22 +22,28 @@ class PatternController extends AbstractController
     #[Route('/', name: 'list', methods: ['GET'])]
     public function list(PatternRepository $patternRepository, Request $request): Response
     {
-        //création de la recherche
-        $searchData = new SearchData();
-        $form = $this->createForm(SearchType::class, $searchData);
+        // Créer le formulaire de recherche
+        $form = $this->createForm(SearchType::class);
         $form->handleRequest($request);
 
+        // Récupérer tous les patrons
+        $patterns = $patternRepository->findAll();
+
+        // Vérifier si le formulaire a été soumis et filtrer les résultats en fonction des données
         if ($form->isSubmitted() && $form->isValid()) {
-            $patterns = $patternRepository->search($searchData);
-        } else {
-            $patterns = $patternRepository->findAll();
+            $searchData = $form->getData();
+
+            // Effectuer la recherche en fonction des critères dans SearchData
+            $patterns = $patternRepository->findBySearchData($searchData);
         }
 
+        // Passer le formulaire et les patrons au template
         return $this->render('pattern/list.html.twig', [
-            "patterns" => $patterns,
-            "form" => $form->createView()
+            'patterns' => $patterns,
+            'form' => $form->createView(), // Passer le formulaire au template
         ]);
     }
+
 
     //route d'un patron
     #[Route('/{id}', name: 'detail', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
@@ -147,5 +152,49 @@ class PatternController extends AbstractController
         //récupère tous les patrons
         $patterns = $patternRepository->findAll();
         return $this->render('pattern/favorites_list.html.twig', ["patterns" => $patterns]);
+    }
+
+// Route pour ajouter/enlever un patron des favoris via AJAX
+    #[Route('/{id}/toggle_favorite', name: 'toggle_favorite', methods: ['POST'])]
+    public function toggleFavorite(
+        int                    $id,
+        PatternRepository      $patternRepository,
+        EntityManagerInterface $em,
+        Request                $request
+    ): JsonResponse
+    {
+        // Récupérer l'utilisateur connecté
+        $user = $this->getUser();
+        if (!$user) {
+            // Ajout d'une redirection ou d'un message flash si l'utilisateur n'est pas connecté
+            return $this->json(['error' => 'Vous devez être connecté pour ajouter aux favoris.'], 400);
+        }
+
+        // Récupérer le patron
+        $pattern = $patternRepository->find($id);
+        if (!$pattern) {
+            return new JsonResponse(['error' => 'Patron introuvable.'], 404);
+        }
+
+        // Vérifier si ce patron est déjà un favori
+        if ($pattern->getFavoritedBy()->contains($user)) {
+            // Si déjà favori, on l'enlève
+            $pattern->removeFavoritedBy($user);
+            $action = 'retiré';
+        } else {
+            // Sinon, on l'ajoute aux favoris
+            $pattern->addFavoritedBy($user);
+            $action = 'ajouté';
+        }
+
+        // Enregistrer les changements
+        $em->persist($pattern);
+        $em->flush();
+
+        // Retourner une réponse JSON
+        return new JsonResponse([
+            'message' => "Patron " . $action . " des favoris.",
+            'isFavorited' => $pattern->getFavoritedBy()->contains($user)
+        ]);
     }
 }
