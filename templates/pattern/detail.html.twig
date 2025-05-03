@@ -5,45 +5,46 @@
 {% endblock %}
 
 {% block body %}
-<div class="card mt-2 mb-2 w-50 m-auto">
+    <div class="pattern-detail">
 
-    <article class="card-body">
-        <div class="card-img-top img-fluid text-center">
-{#                        afficher soit l'icon soit img si existe#}
+        <div class=" img-pattern-detail text-center">
+            {#                        afficher soit l'icon soit img si existe #}
             {% if pattern.image != null %}
-                <img class="card-img-top img-fluid" src="{{ asset('img/images/patterns/' ~ pattern.image) }}" alt="{{ pattern.title }}">
+                <img src="{{ asset('img/images/patterns/' ~ pattern.image) }}" alt="{{ pattern.title }}">
             {% else %}
                 <img class="sewing-icon" src="{{ asset('img/sewing_icon.png') }}" alt="{{ pattern.title }}">
             {% endif %}
+            <div class="pattern-name">{{ pattern.title }}</div>
+        </div>
+        <div>
+
+            <p class="pattern-credit"><span class="bold">Créatrice.teur. : </span>{{ pattern.author }}</p>
+            <p class="card-text"><span class="bold">Catégorie : </span>{{ pattern.category.name }}</p>
+            <p class="card-text"><span class="bold">Patron imprimé : </span>{{ pattern.isPrinted ? 'Oui' : 'Non' }}</p>
+            <p class="card-text"><span class="bold">Projet réalisé : </span>{{ pattern.isRealized ? 'Oui' : 'Non' }}</p>
+            {% if pattern.isrealized %}
+                <p class="card-text"><span
+                            class="bold">Date de réalisation : </span>{{ pattern.dateRealized|date('d-m-Y') }}</p>
+                <p class="card-text"><span class="bold">Commentaire : </span>{{ pattern.commentary | nl2br }}</p>
+            {% endif %}
         </div>
 
-        <h5 class="card-title">Nom du Patron : {{ pattern.title }}</h5>
-        <p class="pattern-credit">Créatrice.teur. : {{ pattern.author }}</p>
-        <p class="card-text">Catégorie : {{ pattern.category.name }}</p>
-        <p class="card-text">Patron imprimé : {{ pattern.isPrinted ? 'Oui' : 'Non'}}</p>
-        <p class="card-text">Projet réalisé : {{ pattern.isRealized ? 'Oui' : 'Non'}}</p>
-        {% if pattern.isrealized %}
-            <p class="card-text">Date de réalisation : {{ pattern.dateRealized|date('d-m-Y') }}</p>
-            <p class="card-text">Commentaire : {{ pattern.commentary|nl2br }}</p>
-        {% endif %}
+        <div class="buttons-container">
+            {% if app.user or is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('pattern_update', {'id': pattern.id}) }}"
+                   class="btn btn-secondary mt-2"
+                   title="Modifier ce patron">
+                    Modifier
+                </a>
+            {% endif %}
+            {% if app.user or is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('pattern_delete', {'id': pattern.id, 'token': csrf_token ('delete'~pattern.id)}) }}"
+                   class="btn btn-danger mt-2"
+                   title="Supprimer ce patron">
+                    Supprimer
+                </a>
+            {% endif %}
 
-    </article>
-
-    <div class="card-body">
-        {% if app.user == pattern.user or is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('pattern_delete', {'id': pattern.id, 'token': csrf_token ('delete'~pattern.id)}) }}"
-           class="btn btn-danger mt-2"
-           title="Supprimer ce patron">
-            Supprimer
-        </a>
-        {% endif %}
-        {% if app.user == pattern.user %}
-        <a href="{{ path('pattern_update', {'id': pattern.id}) }}"
-           class="btn btn-secondary mt-2"
-           title="Modifier ce patron">
-            Modifier
-        </a>
-        {% endif %}
+        </div>
     </div>
-</div>
 {% endblock %}

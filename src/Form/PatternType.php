@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Category;
 use App\Entity\Pattern;
+use App\Repository\CategoryRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -31,7 +32,11 @@ class PatternType extends AbstractType
             ->add('category', EntityType::class
             , [
                 'class' => Category::class,
+                'label' => 'Catégorie :',
                 'choice_label' => 'name',
+                    'query_builder' => function (CategoryRepository $categoryRepository) {
+                        return $categoryRepository->findCategoriesOrderBy();
+                    }
             ])
             ->add('isPrinted', CheckboxType::class, [
                 'required' => false,
@@ -61,14 +66,8 @@ class PatternType extends AbstractType
                         mimeTypesMessage: "Format non valide !"
                     )
                 ]
-            ])
-        ;
-        //        ->add('category', EntityType::class, [
-//        'class' => Category::class,
-//        'query_builder' => function (CategoryRepository $categoryRepository) {
-//            return $categoryRepository->findCategoriesOrderBy();
-//        }
-//    ]);
+            ]);
+
     }
 
 

@@ -1,0 +1,42 @@
+<div class="search-container container mt-4 mb-4">
+    <h3>Rechercher des patrons</h3>
+    {{ form_start(form) }}
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <div class="form-group">
+                {{ form_row(form.searchByName) }}
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="form-group">
+                {{ form_row(form.category) }}
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="form-group">
+                {{ form_row(form.author) }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 mb-3">
+            <div class="form-check">
+                {{ form_row(form.isRealized) }}
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="form-check">
+                {{ form_row(form.isPrinted) }}
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="form-group">
+                {{ form_row(form.dateRealized) }}
+            </div>
+        </div>
+        <div class="col-md-1 mb-3 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary">Rechercher</button>
+        </div>
+    </div>
+    {{ form_end(form) }}
+</div>

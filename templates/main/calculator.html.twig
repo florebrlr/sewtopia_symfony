@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} | Calculateur de jupe cercle
+{% endblock %}
+
+{% block body %}
+    <div class="card-body w-50 m-auto">
+        <article >
+            <h2 >Calculateur de jupe cercle</h2>
+
+            <div class=" w-50 ">
+                {{ form_start(calculatorForm) }}
+                {{ form_row(calculatorForm.tour_de_taille) }}
+                {{ form_row(calculatorForm.longueur_jupe) }}
+
+                <button type="submit" class="btn btn-primary mt-2">Calculer</button>
+                {{ form_end(calculatorForm) }}
+            </div>
+
+            {% if resultat is not null %}
+                <div>
+                    <p>La quantité de tissu nécessaire est de <span class="bold">{{ resultat|number_format(2) }}</span> cm.</p>
+                </div>
+            {% endif %}
+        </article>
+    </div>
+
+
+{% endblock %}
+
+

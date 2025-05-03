@@ -5,15 +5,74 @@
 {% endblock %}
 
 {% block body %}
-    <section class="patterns-list">
+    {# Inclure le formulaire (si applicable) #}
+    {% include 'fragments/_search_data.html.twig' %}
+
+    <section class="container mt-2">
         <h2>Liste de mes patrons :</h2>
         {% for pattern in patterns %}
-            <article>
-                <a href="{{ path('pattern_detail', {id: pattern.id}) }}"
-                   title="Voir les détails de ce patron">
-                    {{ pattern.title }}
-                </a>
+            <article class="patterns-list text-center">
+                <div class="img-pattern">
+                    {% if pattern.image != null %}
+                        <img class="img-fluid" src="{{ asset('img/images/patterns/' ~ pattern.image) }}"
+                             alt="{{ pattern.title }}">
+                    {% else %}
+                        <img class="img-fluid text-center" src="{{ asset('img/sewing_icon.png') }}"
+                             alt="{{ pattern.title }}">
+                    {% endif %}
+                </div>
+
+                <div class="infos-card">
+                    <h5 class="card-title">{{ pattern.title }}</h5>
+                    <p>Créatrice.teur. : {{ pattern.author }}</p>
+                    <a class="btn-template" href="{{ path('pattern_detail', {id: pattern.id}) }}"
+                       title="Voir les détails de ce patron">Voir</a>
+                </div>
+{#                <button class="favorite-btn" data-id="{{ pattern.id }}">#}
+{#                    {% if app.user and pattern.favoritedBy|length > 0 %}#}
+{#                        Retirer des favoris#}
+{#                    {% else %}#}
+{#                        Ajouter aux favoris#}
+{#                    {% endif %}#}
+{#                </button>#}
             </article>
         {% endfor %}
     </section>
+
+    {# Requête AJAX pour mettre ou enlever un patron en favoris #}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Sélectionner tous les boutons "Ajouter aux favoris"
+            const buttons = document.querySelectorAll('.favorite-btn');
+
+            buttons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const patternId = button.getAttribute('data-id');
+
+                    // Envoyer une requête POST via AJAX
+                    fetch(`/patterns/${patternId}/toggle_favorite`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest',
+                        },
+                        body: JSON.stringify({
+                            id: patternId
+                        })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.error) {
+                                alert(data.error); // Afficher un message d'erreur
+                            } else {
+                                // Mettre à jour le texte du bouton
+                                button.textContent = data.isFavorited ? 'Retirer des favoris' : 'Ajouter aux favoris';
+                                alert(data.message); // Afficher un message de succès
+                            }
+                        })
+                        .catch(error => console.error('Erreur AJAX:', error));
+                });
+            });
+        });
+    </script>
 {% endblock %}
