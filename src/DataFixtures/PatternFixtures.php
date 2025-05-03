@@ -23,7 +23,7 @@ class PatternFixtures extends Fixture implements DependentFixtureInterface
             $pattern = new Pattern();
             $pattern
                 ->setTitle($faker->word())
-                ->setImage("image.png")
+                ->setImage(null)
                 ->setAuthor($faker->name())
                 ->setIsPrinted($faker->boolean())
                 ->setIsRealized($faker->boolean())

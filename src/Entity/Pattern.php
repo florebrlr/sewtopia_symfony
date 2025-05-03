@@ -36,10 +36,10 @@ class Pattern
         minMessage: 'Minimum {{ limit }} characters please!',
         maxMessage: 'Maximum {{ limit }} characters please!'
     )]
-    #[Assert\Regex(
-        pattern: '/^[a-z0-9_-]+$/i',
-        message: 'Please  use only letters, numbers, underscores and dashes!'
-    )]
+//    #[Assert\Regex(
+//        pattern: '/^[a-z0-9_-]+$/i',
+//        message: 'Please  use only letters, numbers, underscores and dashes!'
+//    )]
     private ?string $author = null;
 
     // Boolean : patron est imprimé ou non

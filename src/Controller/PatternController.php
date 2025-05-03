@@ -22,19 +22,17 @@ class PatternController extends AbstractController
     #[Route('/', name: 'list', methods: ['GET'])]
     public function list(PatternRepository $patternRepository, Request $request): Response
     {
-        // Créer le formulaire de recherche
-        $form = $this->createForm(SearchType::class);
-        $form->handleRequest($request);
-
         // Récupérer tous les patrons
         $patterns = $patternRepository->findAll();
 
+        // Créer le formulaire de recherche
+        $form = $this->createForm(SearchType::class);
+        $form->handleRequest($request);
         // Vérifier si le formulaire a été soumis et filtrer les résultats en fonction des données
         if ($form->isSubmitted() && $form->isValid()) {
-            $searchData = $form->getData();
-
+            $searchData = $form;
             // Effectuer la recherche en fonction des critères dans SearchData
-            $patterns = $patternRepository->findBySearchData($searchData);
+            $patterns = $patternRepository->findBySearchData($searchData)->getResult();
         }
 
         // Passer le formulaire et les patrons au template
@@ -92,9 +90,11 @@ class PatternController extends AbstractController
         Request                $request,
         EntityManagerInterface $em,
         Uploader               $uploader
+
     ): Response
     {
         $pattern = $patternRepository->find($id);
+
         if (!$pattern) {
             throw $this->createNotFoundException('Ce patron n\'existe pas!');
         }
