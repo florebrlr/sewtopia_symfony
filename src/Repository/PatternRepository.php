@@ -1,13 +1,13 @@
 <?php
-//
-//namespace App\Repository;
-//
-//use App\Entity\Pattern;
-//use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-//use Doctrine\ORM\EntityManagerInterface;
-//use Doctrine\ORM\QueryBuilder;
-//use Doctrine\Persistence\ManagerRegistry;
-//
+
+namespace App\Repository;
+
+use App\Entity\Pattern;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\QueryBuilder;
+use Doctrine\Persistence\ManagerRegistry;
+
 //class PatternRepository extends ServiceEntityRepository
 //{
 //    private EntityManagerInterface $em;
@@ -66,14 +66,6 @@
 //
 //}
 //
-
-namespace App\Repository;
-
-use App\Entity\Pattern;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\QueryBuilder;
-use Doctrine\Persistence\ManagerRegistry;
 
 class PatternRepository extends ServiceEntityRepository
 {

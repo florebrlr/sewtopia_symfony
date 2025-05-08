@@ -3,11 +3,11 @@
         {# Bouton "Précédent" #}
         {% if first is defined and current != first %}
             <li class="prev">
-                <a href="{{ path(route, query|merge({(pageParameterName): first})) }}" title="Page précédente"> < </a>
+                <a href="{{ path(route, query|merge({(pageParameterName): first})) }}" title="Page précédente"> << </a>
             </li>
         {% else %}
             <li class="prev disabled">
-                <a href="#" title="Page précédente"> < </a>
+                <a href="#" title="Page précédente"> << </a>
             </li>
         {% endif %}
 
@@ -27,11 +27,11 @@
         {# Bouton "Suivant" #}
         {% if last is defined and current != last %}
             <li class="next">
-                <a href="{{ path(route, query|merge({(pageParameterName): last})) }}" title="Page suivante"> > </a>
+                <a href="{{ path(route, query|merge({(pageParameterName): last})) }}" title="Page suivante"> >> </a>
             </li>
         {% else %}
             <li class="next disabled">
-                <a href="#" title="Page suivante"> > </a>
+                <a href="#" title="Page suivante"> >> </a>
             </li>
         {% endif %}
     </ul>
