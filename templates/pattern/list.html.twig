@@ -17,16 +17,16 @@
                         <img class="img-fluid" src="{{ asset('img/images/patterns/' ~ pattern.image) }}"
                              alt="{{ pattern.title }}">
                     {% else %}
-                        <img class="img-fluid text-center" src="{{ asset('img/sewing_icon.png') }}"
+                        <img class="img-fluid text-center" src="{{ asset('img/img_default.png') }}"
                              alt="{{ pattern.title }}">
                     {% endif %}
                 </div>
 
                 <div class="infos-card">
-                    <h5 class="card-title">{{ pattern.title }}</h5>
-                    <p>Créatrice.teur. : {{ pattern.author }}</p>
+{#                    <h5 class="card-title">{{ pattern.title }}</h5>#}
+{#                    <p>Créatrice.teur. : {{ pattern.author }}</p>#}
                     <a class="btn-template" href="{{ path('pattern_detail', {id: pattern.id}) }}"
-                       title="Voir les détails de ce patron">Voir</a>
+                       title="Voir les détails de ce patron">{{ pattern.title }}</a>
                 </div>
 {#                <button class="favorite-btn" data-id="{{ pattern.id }}">#}
 {#                    {% if app.user and pattern.favoritedBy|length > 0 %}#}
@@ -36,7 +36,14 @@
 {#                    {% endif %}#}
 {#                </button>#}
             </article>
+        {% else %}
+            <p>Aucun pattern trouvé.</p>
         {% endfor %}
+
+        {# Ajout du bloc de pagination #}
+        <div class="pagination-container">
+            {{ knp_pagination_render(patterns, 'pagination/pagination.html.twig') }}
+        </div>
     </section>
 
     {# Requête AJAX pour mettre ou enlever un patron en favoris #}

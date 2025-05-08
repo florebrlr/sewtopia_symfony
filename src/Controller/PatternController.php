@@ -15,34 +15,40 @@ use App\Form\SearchType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 #[Route('/patterns', name: 'pattern_')]
 class PatternController extends AbstractController
 {
     //route de la liste de tous les patrons
-    #[Route('/', name: 'list', methods: ['GET','POST'])]
-    public function list(PatternRepository $patternRepository, Request $request): Response
+    #[Route('/', name: 'list', methods: ['GET', 'POST'])]
+    public function list(PatternRepository $patternRepository, Request $request, PaginatorInterface $paginator): Response
     {
-        // Récupérer tous les patrons
-        $patterns = $patternRepository->findAll();
-
         // Créer le formulaire de recherche
         $form = $this->createForm(SearchPatternForm::class);
         $form->handleRequest($request);
-        // Vérifier si le formulaire a été soumis et filtrer les résultats en fonction des données
+
+        // Si le formulaire est soumis et valide, utiliser les données pour filtrer
         if ($form->isSubmitted() && $form->isValid()) {
-            $searchData = $form;
-            // Effectuer la recherche en fonction des critères dans SearchData
-            $patterns = $patternRepository->findBySearchData($searchData)->getResult();
+            $searchData = $form->getData();
+            $query = $patternRepository->findBySearchData($searchData);
+        } else {
+            $query = $patternRepository->createQueryBuilder('p')
+                ->orderBy('p.id', 'DESC');
         }
 
-        // Passer le formulaire et les patrons au template
+        // Paginer les résultats
+        $patterns = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            15
+        );
+
         return $this->render('pattern/list.html.twig', [
             'patterns' => $patterns,
-            'form' => $form, // Passer le formulaire au template
+            'form' => $form->createView(),
         ]);
     }
-
 
     //route d'un patron
     #[Route('/{id}', name: 'detail', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
@@ -74,7 +80,7 @@ class PatternController extends AbstractController
             }
             $em->persist($pattern);
             $em->flush();
-            $this->addFlash('success', 'Le patron' . $pattern->getTitle() . ' a été créé!');
+            $this->addFlash('success', 'Le patron ' . $pattern->getTitle() . ' a bien été créé!');
             return $this->redirectToRoute('pattern_detail', ['id' => $pattern->getId()]);
         }
         // affiche le formulaire

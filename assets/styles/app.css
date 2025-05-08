@@ -8,8 +8,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Roboto", sans-serif;
-
 }
 
 html, body {
@@ -19,8 +17,11 @@ html, body {
 body {
     background-color: var(--BackGround);
     color: var(--Black);
+    font-family: "Roboto", sans-serif;
     font-size: var(--font-size-default);
-    height: 100vh;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 /*---------------------------------------------*/
@@ -37,6 +38,8 @@ body {
     --AccentColor5: #fb6a6a;
     --AccentColor6: #ffbbd3;
     --AccentColor7: #7ccdc9;
+    --LilacCard:#F2DAF2;
+    --Pagination:#B064B7;
 
     --White: #fffdfb;
     --WhitePowderedSugar: #fdfcfa;
@@ -57,9 +60,13 @@ body {
 
     /* Font-size */
     --font-size-default: 1em;
-    --font-size-h1: 1.5em;
-    --font-size-h2: 1.25em;
-    --font-size-h3: 1.15em;
+    --font-size-h1: 1.25em;
+    --font-size-h2: 1.15em;
+    --font-size-h3: 1.05em;
+
+    /* Layout */
+    --container-max-width: 1200px;
+    --card-gap: 1.5rem;
 }
 
 /*---------------------------------------------*/
@@ -95,6 +102,8 @@ header nav a:hover {
 
 main {
     background-color: var(--BackGround);
+    flex: 1;
+    padding: 2rem 0;
     justify-content: center;
 
 }
@@ -105,6 +114,8 @@ footer {
     background-color: var(--BackGround);
     font-weight: bold;
     font-family: "Quando", sans-serif;
+    width: 100%;
+    position: relative;
 }
 
 .bold {
@@ -138,6 +149,7 @@ footer {
     z-index: 1000;
     margin-left: 5rem;
     font-weight: bold;
+    font-family: "Quando", sans-serif;
 }
 
 .nav-item {
@@ -176,6 +188,7 @@ footer {
 #hi-username {
     font-size: medium;
     font-weight: bold;
+    padding: var(--10px) var(--40px);
 }
 
 #hi-username:hover {
@@ -202,7 +215,7 @@ footer {
 /*                    FORMS                    */
 /*---------------------------------------------*/
 form {
-    width: 55%;
+    width: 100%;
 }
 form div {
     display: flex;
@@ -216,39 +229,244 @@ form > label {
 /*---------------------------------------------*/
 /*                  PATTERNS LIST              */
 /*---------------------------------------------*/
-.patterns-list {
-    width: 20%;
-    border-radius: 12px;
-    border: 1px solid var(--Black);
-    margin: var(--20px);
-}
-.patterns-list:nth-child(odd) {
-    background-color: var(--AccentColor3);
+/* Container pour l'ensemble des patterns */
+section.container {
+    background-color: var(--BackGround);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--card-gap);
+    justify-content: flex-start;
 }
 
-.patterns-list:nth-child(even) {
-    background-color: var(--AccentColor2);
+section.container h2 {
+    width: 100%;
+}
+
+/* Structure d'une carte pattern individuelle */
+.patterns-list {
+    flex: 0 0 calc(20% - var(--card-gap));
+    max-width: calc(20% - var(--card-gap));
+    display: flex;
+    flex-direction: column;
+    background-color: var(--PrimaryColor);
+    border-radius: 12px;
+    border: 1px solid var(--Black);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: var(--card-gap);
+}
+
+.patterns-list:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    scale: 1.05;
+}
+
+.img-pattern {
+    background-color: var(--White);
+    width: 100%;
+    padding: var(--20px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*height: 220px; !* Hauteur fixe pour uniformiser l'apparence *!*/
+    overflow: hidden;
+}
+
+.img-pattern img {
+    max-width: 100%;
+    max-height: 180px;
+    object-fit: contain;
 }
 
 .infos-card {
-    border-bottom-left-radius: 12px;
-    border-bottom-right-radius: 12px;
+    padding: var(--20px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+    gap: 0.5rem;
+}
+
+.infos-card h5 {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.infos-card p {
+    margin-bottom: 1rem;
+}
+
+.favorite-btn {
+    margin-top: 1rem;
+    background-color: var(--AccentColor2);
+    color: var(--Black);
+    border: 1px solid var(--Black);
+    border-radius: 28px;
+    font-family: "Quando", sans-serif;
+    text-decoration: none;
+    padding: 0.5em 1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.favorite-btn:hover {
+    background-color: var(--AccentColor5);
+}
+/*---------------------------------------------*/
+/*                     FILTERS                 */
+/*---------------------------------------------*/
+.filters-container {
+    background-color: var(--PrimaryColor);
+    border: 1px solid var(--Black);
+    border-radius: 12px;
+    padding: var(--20px) var(--40px);
+    margin: var(--20px) auto;
+    width: fit-content;
+    max-width: 80%;
+    font-family: "Quando", sans-serif;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.filters-container h2 {
+    font-size: var(--font-size-h2);
     margin-bottom: var(--20px);
+    text-align: center;
 }
-.img-pattern {
+
+.filters-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--20px);
+    justify-content: center;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    min-width: 200px;
+    flex: 1 1 200px;
+}
+
+.filter-group label {
+    margin-bottom: 0.5em;
+    font-weight: bold;
+    font-family: "Roboto", sans-serif;
+}
+
+.filter-group input, .filter-group select, .filter-group textarea {
+    padding: 0.5em;
+    border: 1px solid var(--Black);
+    border-radius: 8px;
+    font-family: "Roboto", sans-serif;
     background-color: var(--White);
-    padding:var(--20px);
-    margin :var(--20px);
-    max-width: 200px;
 }
-/*id*/
-/*#btn-list {*/
-/*    background-color: var(--BackGround);*/
-/*    color: var(--Black);*/
-/*    border-radius: 28px solid var(--Black);*/
-/*    font-family: "Quando", sans-serif;*/
-/*    text-decoration: none;*/
-/*}*/
+
+.filter-buttons {
+    display: flex;
+    gap: 1em;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+.btn-filter, .btn-reset {
+    padding: 0.6em 1.2em;
+    border-radius: 28px;
+    font-family: "Quando", sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    border: none;
+    text-decoration: none;
+}
+
+/* btn Rechercher */
+.btn-filter {
+    background-color: var(--AccentColor4);
+    color: var(--Black);
+}
+
+.btn-filter:hover {
+    background-color: var(--ColorHoverButton);
+    border: 1px solid var(--Black);
+}
+
+/* btn reinitialiser */
+.btn-reset {
+    background-color: var(--ColorCancelButton);
+    color: var(--Black);
+}
+
+.btn-reset:hover {
+    background-color: var(--ColorCancelButton);
+    color: var(--Black);
+    border: 1px solid var(--Black);
+}
+
+/*---------------------------------------------*/
+/*                 PAGINATION                   */
+/*---------------------------------------------*/
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+    width: 100%;
+}
+
+.pagination {
+    display: flex;
+    list-style: none;
+    align-items: center;
+    background-color: var(--PrimaryColor);
+    border-radius: 28px;
+    padding: 0.5rem;
+    border: 1px solid var(--Black);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.pagination li {
+    margin: 0 0.25rem;
+}
+
+.pagination a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    text-decoration: none;
+    color: var(--Black);
+    font-family: "Quando", sans-serif;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.pagination a:hover {
+    background-color: var(--Pagination);
+    color: var(--Black);
+}
+
+.pagination .active a {
+    font-size: 1.2em;
+    border: 1px solid var(--Black);
+}
+
+.pagination .prev a,
+.pagination .next a {
+    width: auto;
+    padding: 0 1rem;
+    border-radius: 28px;
+}
+
+.pagination .disabled a {
+    pointer-events: none;
+    cursor: default;
+    color: var(--PrimaryColor);
+}
+
+
 
 /*---------------------------------------------*/
 /*                 DETAIL PATTERN              */
@@ -310,5 +528,37 @@ form > label {
 @media (max-width: 768px) {
     .sidebar {
         width: 100%; /* Sur les petits écrans, la sidebar prend 100% de la largeur */
+    }
+
+    @media (max-width: 768px) {
+        .filters-form {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .filter-buttons {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .btn-filter,
+        .btn-reset {
+            width: 100%;
+        }
+    }
+
+    .pagination {
+        padding: 0.3rem;
+    }
+
+    .pagination a {
+        width: 2rem;
+        height: 2rem;
+        font-size: 0.9rem;
+    }
+
+    /* Cacher certains numéros de page sur mobile */
+    .pagination li:not(.active):not(.prev):not(.next):nth-child(n+4):nth-last-child(n+4) {
+        display: none;
     }
 }

@@ -1,41 +1,28 @@
-<div class="search-container container mt-4 mb-4">
-    <h3>Rechercher des patrons</h3>
+<div class="filters-container">
+    <h2>Filtres</h2>
     {{ form_start(form) }}
-    <div class="row">
-        <div class="col-md-4 mb-3">
-            <div class="form-group">
-                {{ form_row(form.searchByName) }}
-            </div>
+    <div class="filters-form">
+        <div class="filter-group">
+            {{ form_row(form.searchByName) }}
         </div>
-        <div class="col-md-4 mb-3">
-            <div class="form-group">
-                {{ form_row(form.category) }}
-            </div>
+        <div class="filter-group">
+            {{ form_row(form.category) }}
         </div>
-        <div class="col-md-4 mb-3">
-            <div class="form-group">
-                {{ form_row(form.author) }}
-            </div>
+        <div class="filter-group">
+            {{ form_row(form.author) }}
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-3 mb-3">
-            <div class="form-check">
-                {{ form_row(form.isRealized) }}
-            </div>
+        <div class="filter-group">
+            {{ form_row(form.isRealized) }}
         </div>
-        <div class="col-md-3 mb-3">
-            <div class="form-check">
-                {{ form_row(form.isPrinted) }}
-            </div>
+        <div class="filter-group">
+            {{ form_row(form.isPrinted) }}
         </div>
-        <div class="col-md-3 mb-3">
-            <div class="form-group">
-                {{ form_row(form.dateRealized) }}
-            </div>
+        <div class="filter-group">
+            {{ form_row(form.dateRealized) }}
         </div>
-        <div class="col-md-1 mb-3 d-flex align-items-end">
-            <button type="submit" class="btn btn-primary">Rechercher</button>
+        <div class="filter-buttons">
+            <button type="submit" class="btn-filter">Rechercher</button>
+            <a href="{{ path(app.request.attributes.get('_route')) }}" class="btn-reset">Réinitialiser</a>
         </div>
     </div>
     {{ form_end(form) }}
