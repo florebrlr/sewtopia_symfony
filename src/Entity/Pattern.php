@@ -82,7 +82,7 @@ class Pattern
     public function __construct()
     {
         $this->isPrinted = false;
-        $this->dateRealized = null; // Initialisation correcte à null
+        $this->dateRealized = null;
     }
 
     // Getter et setter ID
