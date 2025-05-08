@@ -38,6 +38,8 @@ body {
     --AccentColor5: #fb6a6a;
     --AccentColor6: #ffbbd3;
     --AccentColor7: #7ccdc9;
+    --LilacCard:#F2DAF2;
+    --Pagination:#B064B7;
 
     --White: #fffdfb;
     --WhitePowderedSugar: #fdfcfa;
@@ -401,6 +403,70 @@ section.container h2 {
     color: var(--Black);
     border: 1px solid var(--Black);
 }
+
+/*---------------------------------------------*/
+/*                 PAGINATION                   */
+/*---------------------------------------------*/
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+    width: 100%;
+}
+
+.pagination {
+    display: flex;
+    list-style: none;
+    align-items: center;
+    background-color: var(--PrimaryColor);
+    border-radius: 28px;
+    padding: 0.5rem;
+    border: 1px solid var(--Black);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.pagination li {
+    margin: 0 0.25rem;
+}
+
+.pagination a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    text-decoration: none;
+    color: var(--Black);
+    font-family: "Quando", sans-serif;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.pagination a:hover {
+    background-color: var(--Pagination);
+    color: var(--Black);
+}
+
+.pagination .active a {
+    font-size: 1.2em;
+    border: 1px solid var(--Black);
+}
+
+.pagination .prev a,
+.pagination .next a {
+    width: auto;
+    padding: 0 1rem;
+    border-radius: 28px;
+}
+
+.pagination .disabled a {
+    pointer-events: none;
+    cursor: default;
+}
+
+
+
 /*---------------------------------------------*/
 /*                 DETAIL PATTERN              */
 /*---------------------------------------------*/
@@ -478,5 +544,20 @@ section.container h2 {
         .btn-reset {
             width: 100%;
         }
+    }
+
+    .pagination {
+        padding: 0.3rem;
+    }
+
+    .pagination a {
+        width: 2rem;
+        height: 2rem;
+        font-size: 0.9rem;
+    }
+
+    /* Cacher certains numéros de page sur mobile */
+    .pagination li:not(.active):not(.prev):not(.next):nth-child(n+4):nth-last-child(n+4) {
+        display: none;
     }
 }

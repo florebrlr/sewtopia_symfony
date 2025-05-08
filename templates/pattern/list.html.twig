@@ -36,7 +36,14 @@
 {#                    {% endif %}#}
 {#                </button>#}
             </article>
+        {% else %}
+            <p>Aucun pattern trouvé.</p>
         {% endfor %}
+
+        {# Ajout du bloc de pagination #}
+        <div class="pagination-container">
+            {{ knp_pagination_render(patterns, 'pagination/pagination.html.twig') }}
+        </div>
     </section>
 
     {# Requête AJAX pour mettre ou enlever un patron en favoris #}

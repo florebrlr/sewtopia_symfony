@@ -15,13 +15,14 @@ use App\Form\SearchType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 #[Route('/patterns', name: 'pattern_')]
 class PatternController extends AbstractController
 {
     //route de la liste de tous les patrons
     #[Route('/', name: 'list', methods: ['GET','POST'])]
-    public function list(PatternRepository $patternRepository, Request $request): Response
+    public function list(PatternRepository $patternRepository, Request $request, PaginatorInterface $paginator): Response
     {
         // Récupérer tous les patrons
         $patterns = $patternRepository->findAll();
@@ -36,6 +37,22 @@ class PatternController extends AbstractController
             $patterns = $patternRepository->findBySearchData($searchData)->getResult();
         }
 
+
+
+        // Récupérer le numéro de page depuis la requête
+        $page = $request->query->getInt('page', 1);
+
+        // Récupérer les patterns (query builder ou collection)
+        $patternsQuery = $patternRepository->createQueryBuilder('p')
+            ->orderBy('p.id', 'DESC')
+            ->getQuery();
+
+        // Paginer les résultats (15 items par page)
+        $patterns = $paginator->paginate(
+            $patternsQuery,
+            $page,
+            15 // Nombre d'éléments par page
+        );
         // Passer le formulaire et les patrons au template
         return $this->render('pattern/list.html.twig', [
             'patterns' => $patterns,
